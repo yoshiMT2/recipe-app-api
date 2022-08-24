@@ -1,0 +1,10 @@
+.git
+.gitignore
+.docker
+app/py__cache__/
+app/*/py__cache__/
+app/*/*/py__cache__/
+app/*/*/*/py__cache__/
+.env/
+.venv/
+venv/
