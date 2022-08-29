@@ -23,7 +23,7 @@ class UserAdmin(BaseUserAdmin):
                 ]
             }
         ),
-        (_('Important Dates'), {'fields': ['last_login',]})
+        (_('Important Dates'), {'fields': ['last_login', ]})
     ]
     readonly_fields = ['last_login']
     add_fieldsets = [

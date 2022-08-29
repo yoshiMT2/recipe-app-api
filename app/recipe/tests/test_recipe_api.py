@@ -15,9 +15,11 @@ from recipe.serializers import (
 
 RECIPES_URL = reverse('recipe:recipe-list')
 
+
 def detail_url(recipe_id):
     """Create and return a recipe detailURL."""
     return reverse('recipe:recipe-detail', args=[recipe_id])
+
 
 def create_recipe(user, **params):
     """Create and returns a sample recipe."""
@@ -48,7 +50,7 @@ class PulicRecipeAPITests(TestCase):
 
     def test_auth_required(self):
         """Test auth is required to call API."""
-        res  = self.client.get(RECIPES_URL)
+        res = self.client.get(RECIPES_URL)
 
         self.assertEqual(res.status_code, status.HTTP_403_FORBIDDEN)
 
@@ -58,7 +60,10 @@ class PrivateRecipeAPITests(TestCase):
 
     def setUp(self):
         self.client = APIClient()
-        self.user = create_user(email='user@example.com', password='testpass123')
+        self.user = create_user(
+            email='user@example.com',
+            password='testpass123'
+        )
         self.client.force_authenticate(self.user)
 
     def test_retrieve_recipes(self):
@@ -76,7 +81,10 @@ class PrivateRecipeAPITests(TestCase):
 
     def test_recipe_list_limited_to_user(self):
         """Test list of recipes is limited to authenticated user."""
-        other_user = create_user(email='other@example.com',password='pasword123')
+        other_user = create_user(
+            email='other@example.com',
+            password='pasword123'
+        )
         create_recipe(user=other_user)
         create_recipe(user=self.user)
 
@@ -158,7 +166,10 @@ class PrivateRecipeAPITests(TestCase):
 
     def test_update_user_returns_error(self):
         """Test changing the recipe user results in an error."""
-        new_user = create_user(email='user2@example.com', password='test12345')
+        new_user = create_user(
+            email='user2@example.com',
+            password='test12345'
+        )
         recipe = create_recipe(user=self.user)
 
         payload = {'user': new_user.id}
@@ -180,7 +191,10 @@ class PrivateRecipeAPITests(TestCase):
 
     def test_dete_other_users_recipe_error(self):
         """Test trying to delete another users recipe gives error."""
-        new_user = create_user(email='user2@example.com', password='otherpass234')
+        new_user = create_user(
+            email='user2@example.com',
+            password='otherpass234'
+        )
         recipe = create_recipe(user=new_user)
 
         url = detail_url(recipe.id)
