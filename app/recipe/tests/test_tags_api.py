@@ -1,4 +1,4 @@
-""""
+"""
 Tests for tags API
 """
 from django.contrib.auth import get_user_model
